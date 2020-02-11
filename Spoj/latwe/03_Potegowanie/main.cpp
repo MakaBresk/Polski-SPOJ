@@ -9,14 +9,15 @@ int wykladnikPotegi = 0;
 
 int obliczPotege(int podstawa, int wykladnik)
 {
-    switch(wykladnik)
-    {
-        case 1:
-            return podstawa;
-        break;
-    }
+    if (wykladnik == 1)
+        return podstawa;
 
-    if (podstawa == 10)
+    // Sprawdzanie parzystości i nieparzystości oraz czy liczba jest podzielna przez 5
+    if (podstawa % 10 == 1) // 1, 11, 21,
+        return 1;
+    else if (podstawa % 2 != 0 && podstawa % 5 == 0) // 5, 15, 25
+        return 5;
+    else if (podstawa % 2 == 0 && podstawa % 5 == 0) // 10, 20, 30
         return 0;
 
     int wynikKoncowy = podstawa;
@@ -60,9 +61,10 @@ int main()
 
             // Sprawdzenie przedziału w jakim znajdują się podane liczby, a następnie wywołanie funkcji
             if ((podstawaPotegi >= 1 && podstawaPotegi <= 1000000000) && (wykladnikPotegi >= 1 && wykladnikPotegi <= 1000000000))
+            {
                 cyfraJednosciWyniku = obliczPotege(podstawaPotegi, wykladnikPotegi) % 10;
-
-            cout << cyfraJednosciWyniku << endl;
+                cout << cyfraJednosciWyniku << endl;
+            }
             liczbaTestow--;
         }
     }
