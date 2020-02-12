@@ -1,6 +1,6 @@
 #include <iostream>
-#include <string>
-#include <cstdlib>
+#include <string> // substr()
+#include <cstdlib> // atoi()
 
 using namespace std;
 
@@ -12,20 +12,136 @@ int obliczPotege(int podstawa, int wykladnik)
     if (wykladnik == 1)
         return podstawa;
 
-    // Sprawdzanie parzystości i nieparzystości oraz czy liczba jest podzielna przez 5
-    if (podstawa % 10 == 1) // 1, 11, 21,
-        return 1;
-    else if (podstawa % 2 != 0 && podstawa % 5 == 0) // 5, 15, 25
-        return 5;
-    else if (podstawa % 2 == 0 && podstawa % 5 == 0) // 10, 20, 30
-        return 0;
-
-    int wynikKoncowy = podstawa;
-    for (int i = 1; i < wykladnik; i++)
+    int wynik = 0;
+    switch (podstawa % 10)
     {
-        wynikKoncowy *= podstawa;
+        case 1: // 1, 11, 21, ...
+            wynik = 1;
+        break;
+
+        case 2: // 2, 12, 22, ...
+        {
+            switch (wykladnik % 4)
+            {
+                case 1:
+                    wynik = 2;
+                break;
+
+                case 2:
+                    wynik = 4;
+                break;
+
+                case 3:
+                    wynik = 8;
+                break;
+
+                case 0:
+                    wynik = 6;
+                break;
+            }
+        }
+        break;
+
+        case 3: // 3, 13, 23, ...
+        {
+            switch (wykladnik % 4)
+            {
+                case 1:
+                    wynik = 3;
+                break;
+
+                case 2:
+                    wynik = 9;
+                break;
+
+                case 3:
+                    wynik = 7;
+                break;
+
+                case 0:
+                    wynik = 1;
+                break;
+            }
+        }
+        break;
+
+        case 4: // 4, 14, 24, ...
+        {
+            if (wykladnik % 4 == 1 || wykladnik % 4 == 3)
+                wynik = 4;
+            else
+                wynik = 6;
+        }
+        break;
+
+        case 5: // 5, 15, 25, ...
+            wynik = 5;
+        break;
+
+        case 6: // 6, 16, 26, ...
+            wynik = 6;
+        break;
+
+        case 7: // 7, 17, 27, ...
+        {
+            switch (wykladnik % 4)
+            {
+                case 1:
+                    wynik = 7;
+                break;
+
+                case 2:
+                    wynik = 9;
+                break;
+
+                case 3:
+                    wynik = 3;
+                break;
+
+                case 0:
+                    wynik = 1;
+                break;
+            }
+        }
+        break;
+
+        case 8: // 8, 18, 28, ...
+        {
+            switch (wykladnik % 4)
+            {
+                case 1:
+                    wynik = 8;
+                break;
+
+                case 2:
+                    wynik = 4;
+                break;
+
+                case 3:
+                    wynik = 2;
+                break;
+
+                case 0:
+                    wynik = 6;
+                break;
+            }
+        }
+        break;
+
+        case 9: // 9, 19, 29, ...
+        {
+            if (wykladnik % 4 == 1 || wykladnik % 4 == 3)
+                wynik = 9;
+            else
+                wynik = 1;
+        }
+        break;
+
+        case 0: // 10, 20, 30, ...
+            wynik = 0;
+        break;
     }
-    return wynikKoncowy;
+    return wynik;
 }
 
 int main()
@@ -38,7 +154,6 @@ int main()
     {
         while (liczbaTestow != 0)
         {
-            int cyfraJednosciWyniku = 0;
             int ileZnakow = 0;
 
             getline(cin, line); // Wczytywanie tekstu wierszami
@@ -59,10 +174,10 @@ int main()
             string wykladnikPotegi_str = line.substr(ileZnakow+1,line.length());
             wykladnikPotegi = atoi(wykladnikPotegi_str.c_str());
 
-            // Sprawdzenie przedziału w jakim znajdują się podane liczby, a następnie wywołanie funkcji
+            // Sprawdzenie przedziału w jakim znajdują się podane liczby, a następnie wywołanie funkcji obliczającej potęgę
             if ((podstawaPotegi >= 1 && podstawaPotegi <= 1000000000) && (wykladnikPotegi >= 1 && wykladnikPotegi <= 1000000000))
             {
-                cyfraJednosciWyniku = obliczPotege(podstawaPotegi, wykladnikPotegi) % 10;
+                int cyfraJednosciWyniku = obliczPotege(podstawaPotegi, wykladnikPotegi) % 10;
                 cout << cyfraJednosciWyniku << endl;
             }
             liczbaTestow--;
