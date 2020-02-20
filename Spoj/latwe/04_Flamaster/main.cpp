@@ -13,89 +13,68 @@ int main()
     int liczbaTestow = 0;
     cin >> liczbaTestow;
 
-    if (liczbaTestow >= 1 && liczbaTestow <= 50)
-    {
-        while (liczbaTestow != 0)
-        {
-            string wyraz;
-            string skroconyWyraz = ""; // Czyszczenie łańcucha znaków
+    while (liczbaTestow > 0)
+	{
+		string wyraz;
+		string skroconyWyraz = ""; // Czyszczenie łańcucha znaków
 
-            cin >> wyraz;
-            int dlugoscWyrazu = wyraz.length();
+		cin >> wyraz;
+		int dlugoscWyrazu = wyraz.length();
 
-            // Sprawdzenie czy wyraz nie przekracza 200 znaków
-            if (dlugoscWyrazu > 0 && dlugoscWyrazu <= 200)
+		// Sprawdzenie czy wyraz nie jest pusty
+		if (dlugoscWyrazu != 0)
+		{
+		    char sprawdzoneZnaki[dlugoscWyrazu-1];
+		    memset(sprawdzoneZnaki,'-',dlugoscWyrazu);
+
+            for (int i = 0; i < dlugoscWyrazu; i++)
             {
-                bool czyAlfabetAmerykanski = false;
-                char sprawdzoneZnaki[dlugoscWyrazu-1];
+                int liczbaWystapienZnaku = 0; // Zerowanie liczby wystąpień danego znaku
+                char sprawdzanyZnak = wyraz[i];
+                bool czyLiczycZnaki = true;
 
-                // Wypełnienie tablicy znakami -, w przeciwnym wypadku tablica może mieć losową zawartość
-                memset(sprawdzoneZnaki, '-', dlugoscWyrazu-1);
-
-                // Sprawdzenie czy wyraz składa się z samych dużych liter alfabetu amerykańskiego (A-Z)
-                for (int i = 0; i < dlugoscWyrazu; i++)
+                // Sprawdzenie czy znak był sprawdzony
+                for (int j = 0; j < dlugoscWyrazu; j++)
                 {
-                    if ((int)wyraz[i] >= 65 && (int)wyraz[i] <= 90) // Tabela znaków ASCII
-                        czyAlfabetAmerykanski = true;
-                    else
-                        czyAlfabetAmerykanski = false;
+                    if (sprawdzanyZnak == sprawdzoneZnaki[j])
+                    {
+                        czyLiczycZnaki = false;
+                        break;
+                    }
                 }
 
-                if (czyAlfabetAmerykanski == true)
+                if (czyLiczycZnaki == true)
                 {
-                    int liczbaWystapienZnaku;
-                    char sprawdzanyZnak;
+                    sprawdzoneZnaki[i] = sprawdzanyZnak;
 
-                   for (int i = 0; i < dlugoscWyrazu; i++)
-                   {
-                        liczbaWystapienZnaku = 0; // Zerowanie liczby wystąpień danego znaku
-                        sprawdzanyZnak = wyraz[i];
-                        bool czyLiczycZnaki = true;
+                    // Zliczenie liczby wystąpień sprawdzanego znaku
+                    for (int k = 0; k < dlugoscWyrazu; k++)
+                    {
+                        if (wyraz[k] == sprawdzanyZnak)
+                            liczbaWystapienZnaku++;
+                    }
 
-                        // Sprawdzenie czy znak był sprawdzony
-                        for (int j = 0; j < dlugoscWyrazu; j++)
+                    // Skrócenie wyrazu
+                    if (liczbaWystapienZnaku > 2)
+                    {
+                        ostringstream ss;
+                        ss << sprawdzanyZnak << liczbaWystapienZnaku;
+
+                        skroconyWyraz += ss.str();
+                    }
+                    else
+                    {
+                        while (liczbaWystapienZnaku != 0)
                         {
-                            if (sprawdzanyZnak == sprawdzoneZnaki[j])
-                            {
-                                czyLiczycZnaki = false;
-                                break;
-                            }
-                        }
-
-                        if (czyLiczycZnaki == true)
-                        {
-                            sprawdzoneZnaki[i] = sprawdzanyZnak;
-
-                            // Zliczenie liczby wystąpień sprawdzanego znaku
-                            for (int k = 0; k < dlugoscWyrazu; k++)
-                            {
-                                if (wyraz[k] == sprawdzanyZnak)
-                                    liczbaWystapienZnaku++;
-                            }
-
-                            // Skrócenie wyrazu
-                            if (liczbaWystapienZnaku > 2)
-                            {
-                                ostringstream ss;
-                                ss << sprawdzanyZnak << liczbaWystapienZnaku;
-
-                                skroconyWyraz += ss.str();
-                            }
-                            else
-                            {
-                                while (liczbaWystapienZnaku != 0)
-                                {
-                                    skroconyWyraz += sprawdzanyZnak;
-                                    liczbaWystapienZnaku--;
-                                }
-                            }
+                            skroconyWyraz += sprawdzanyZnak;
+                            liczbaWystapienZnaku--;
                         }
                     }
-                cout << skroconyWyraz << endl;
                 }
             }
-            liczbaTestow--;
-        }
-    }
+			cout << skroconyWyraz << endl;
+		}
+		liczbaTestow--;
+	}
     return 0;
 }
