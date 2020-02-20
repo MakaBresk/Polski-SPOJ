@@ -3,7 +3,6 @@
 using namespace std;
 
 int wprowadzonaLiczba = 0;
-
 bool czyPierwsza(int value)
 {
     if (value == 1)
@@ -23,20 +22,17 @@ int main()
     int liczbaTestow = 0;
     cin >> liczbaTestow;
 
-    if (liczbaTestow < 100000)
+    while (liczbaTestow != 0)
     {
-        while (liczbaTestow != 0)
+        cin >> wprowadzonaLiczba;
+        if (wprowadzonaLiczba > 0)
         {
-            cin >> wprowadzonaLiczba;
-            if (wprowadzonaLiczba >= 1 && wprowadzonaLiczba <= 10000)
-            {
-                if (czyPierwsza(wprowadzonaLiczba) == true) // Wywołanie funkcji
-                    cout << "TAK" << endl;
-                else
-                    cout << "NIE" << endl;
-            }
-            liczbaTestow--;
+            if (czyPierwsza(wprowadzonaLiczba) == true) // Wywołanie funkcji
+                cout << "TAK" << endl;
+            else
+                cout << "NIE" << endl;
         }
+        liczbaTestow--;
     }
     return 0;
 }
