@@ -1,22 +1,17 @@
 #include <iostream>
 #include <sstream> // ostringstream
-#include <string.h> // memset
 
 using namespace std;
 
-/* TODO:
-    1. Tablica sprawdzonych znaków (bez powtórzeń)
-*/
-
 int main()
 {
-    int liczbaTestow = 0;
+    int liczbaTestow;
     cin >> liczbaTestow;
 
     while (liczbaTestow > 0)
 	{
 		string wyraz;
-		string skroconyWyraz = ""; // Czyszczenie łańcucha znaków
+		string skroconyWyraz = ""; // Czyszczenie zawartości łańcucha
 
 		cin >> wyraz;
 		int dlugoscWyrazu = wyraz.length();
@@ -24,17 +19,18 @@ int main()
 		// Sprawdzenie czy wyraz nie jest pusty
 		if (dlugoscWyrazu != 0)
 		{
-		    char sprawdzoneZnaki[dlugoscWyrazu-1];
-		    memset(sprawdzoneZnaki,'-',dlugoscWyrazu);
+		    string sprawdzoneZnaki;
+		    int liczbaSprawdzonychZnakow;
 
             for (int i = 0; i < dlugoscWyrazu; i++)
             {
                 int liczbaWystapienZnaku = 0; // Zerowanie liczby wystąpień danego znaku
+                liczbaSprawdzonychZnakow = sprawdzoneZnaki.length();
                 char sprawdzanyZnak = wyraz[i];
                 bool czyLiczycZnaki = true;
 
                 // Sprawdzenie czy znak był sprawdzony
-                for (int j = 0; j < dlugoscWyrazu; j++)
+                for (int j = 0; j < liczbaSprawdzonychZnakow; j++)
                 {
                     if (sprawdzanyZnak == sprawdzoneZnaki[j])
                     {
@@ -43,9 +39,10 @@ int main()
                     }
                 }
 
+                // Zliczanie znaków bez powtórzeń
                 if (czyLiczycZnaki == true)
                 {
-                    sprawdzoneZnaki[i] = sprawdzanyZnak;
+                    sprawdzoneZnaki += sprawdzanyZnak;
 
                     // Zliczenie liczby wystąpień sprawdzanego znaku
                     for (int k = 0; k < dlugoscWyrazu; k++)
@@ -72,6 +69,10 @@ int main()
                     }
                 }
             }
+
+            liczbaSprawdzonychZnakow = 0; // Zerowanie rozmiaru łańcucha
+            sprawdzoneZnaki = ""; // Czyszczenie zawartości łańcucha
+
 			cout << skroconyWyraz << endl;
 		}
 		liczbaTestow--;
