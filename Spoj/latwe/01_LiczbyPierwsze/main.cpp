@@ -19,19 +19,18 @@ bool czyPierwsza(int value)
 
 int main()
 {
-    int liczbaTestow = 0;
+    int liczbaTestow;
     cin >> liczbaTestow;
 
     while (liczbaTestow != 0)
     {
         cin >> wprowadzonaLiczba;
-        if (wprowadzonaLiczba > 0)
-        {
-            if (czyPierwsza(wprowadzonaLiczba) == true) // Wywołanie funkcji
-                cout << "TAK" << endl;
-            else
-                cout << "NIE" << endl;
-        }
+
+        if (czyPierwsza(wprowadzonaLiczba) == true) // Wywołanie funkcji
+            cout << "TAK" << endl;
+        else
+            cout << "NIE" << endl;
+
         liczbaTestow--;
     }
     return 0;
