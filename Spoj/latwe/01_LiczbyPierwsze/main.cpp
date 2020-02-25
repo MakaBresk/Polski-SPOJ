@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int wprowadzonaLiczba = 0;
+int liczba = 0;
 bool czyPierwsza(int value)
 {
     if (value == 1)
@@ -24,9 +24,9 @@ int main()
 
     while (liczbaTestow != 0)
     {
-        cin >> wprowadzonaLiczba;
+        cin >> liczba;
 
-        if (czyPierwsza(wprowadzonaLiczba) == true) // Wywołanie funkcji
+        if (czyPierwsza(liczba) == true) // Wywołanie funkcji
             cout << "TAK" << endl;
         else
             cout << "NIE" << endl;
