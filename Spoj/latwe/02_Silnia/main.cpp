@@ -2,7 +2,7 @@
 
 using namespace std;
 
-int wprowadzonaLiczba = 0;
+int liczba = 0;
 int obliczSilnie(int value)
 {
     int wynikSilni = 1;
@@ -15,26 +15,26 @@ int obliczSilnie(int value)
 
 int main()
 {
-    int liczbaTestow = 0;
+    int liczbaTestow;
     cin >> liczbaTestow;
 
     while (liczbaTestow != 0)
     {
-        cin >> wprowadzonaLiczba;
+        cin >> liczba;
 
         int cyfraDziesiatekWyniku;
         int cyfraJednosciWyniku;
 
-        if (wprowadzonaLiczba == 1)
+        if (liczba == 1)
         {
             cyfraDziesiatekWyniku = 0;
             cyfraJednosciWyniku = 1;
         }
         else
         {
-            if (wprowadzonaLiczba < 10)
+            if (liczba < 10)
             {
-                int wynikSilni = obliczSilnie(wprowadzonaLiczba);
+                int wynikSilni = obliczSilnie(liczba);
 
                 // % - reszta z dzielenia
                 cyfraDziesiatekWyniku = (wynikSilni/10) % 10;
