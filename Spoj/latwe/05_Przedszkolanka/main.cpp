@@ -27,26 +27,26 @@ int main()
         int liczbaPrzedszkolakowGrupaA = atoi(a.c_str());
 
         int liczbaCukierkow = 0;
-        int i = 0;
+        int i = 2;
 
-        while (true)
+        // Obliczenie liczby cukierków
+        if (liczbaPrzedszkolakowGrupaA == liczbaPrzedszkolakowGrupaB)
+            liczbaCukierkow = liczbaPrzedszkolakowGrupaA;
+        else
         {
-            if (liczbaPrzedszkolakowGrupaA == liczbaPrzedszkolakowGrupaB)
+            while (true)
             {
-                liczbaCukierkow = liczbaPrzedszkolakowGrupaA;
-                break;
-            }
-            else if ()
-            {
+                liczbaCukierkow = liczbaPrzedszkolakowGrupaA * i;
 
+                // Przerwanie pętli gdy reszta z dzielenia wyniesie 0
+                if (liczbaCukierkow % liczbaPrzedszkolakowGrupaB == 0)
+                    break;
+                i++;
             }
-            else
         }
 
         cout << liczbaCukierkow << endl;
-
         liczbaTestow--;
     }
-
     return 0;
 }
