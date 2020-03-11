@@ -1,5 +1,5 @@
 #include <iostream>
-#include <sstream> // ostringstream
+#include <string> // to_string
 
 using namespace std;
 
@@ -11,70 +11,69 @@ int main()
     while (liczbaTestow > 0)
 	{
 		string wyraz;
-		string skroconyWyraz = ""; // Czyszczenie zawartości łańcucha
+		string skroconyWyraz;
 
 		cin >> wyraz;
+
 		int dlugoscWyrazu = wyraz.length();
+		int i = 0, j = 1;
+        int liczbaWystapienZnaku = 1;
 
-		// Sprawdzenie czy wyraz nie jest pusty
-		if (dlugoscWyrazu != 0)
-		{
-		    string sprawdzoneZnaki;
-		    int liczbaSprawdzonychZnakow;
+        if (dlugoscWyrazu == 1)
+            skroconyWyraz += wyraz[i];
 
-            for (int i = 0; i < dlugoscWyrazu; i++)
+        while (j < dlugoscWyrazu)
+        {
+            if (wyraz[i] == wyraz[j])
             {
-                int liczbaWystapienZnaku = 0; // Zerowanie liczby wystąpień danego znaku
-                liczbaSprawdzonychZnakow = sprawdzoneZnaki.length();
-                char sprawdzanyZnak = wyraz[i];
-                bool czyLiczycZnaki = true;
-
-                // Sprawdzenie czy znak był sprawdzony
-                for (int j = 0; j < liczbaSprawdzonychZnakow; j++)
+                liczbaWystapienZnaku++;
+                j++;
+            }
+            else
+            {
+                // Skrócenie wyrazu
+                if (liczbaWystapienZnaku > 2)
                 {
-                    if (sprawdzanyZnak == sprawdzoneZnaki[j])
+                    skroconyWyraz += wyraz[i];
+                    skroconyWyraz += to_string(liczbaWystapienZnaku);
+                }
+                else
+                {
+                    int n = liczbaWystapienZnaku;
+
+                    while (n != 0)
                     {
-                        czyLiczycZnaki = false;
-                        break;
+                        skroconyWyraz += wyraz[i];
+                        n--;
                     }
                 }
 
-                // Zliczanie znaków bez powtórzeń
-                if (czyLiczycZnaki == true)
+                i += liczbaWystapienZnaku;
+                j++;
+                liczbaWystapienZnaku = 1;
+            }
+
+            if (j == dlugoscWyrazu)
+            {
+                // Skrócenie wyrazu
+                if (liczbaWystapienZnaku > 2)
                 {
-                    sprawdzoneZnaki += sprawdzanyZnak;
+                    skroconyWyraz += wyraz[i];
+                    skroconyWyraz += to_string(liczbaWystapienZnaku);
+                }
+                else
+                {
+                    int n = liczbaWystapienZnaku;
 
-                    // Zliczenie liczby wystąpień sprawdzanego znaku
-                    for (int k = 0; k < dlugoscWyrazu; k++)
+                    while (n != 0)
                     {
-                        if (wyraz[k] == sprawdzanyZnak)
-                            liczbaWystapienZnaku++;
-                    }
-
-                    // Skrócenie wyrazu
-                    if (liczbaWystapienZnaku > 2)
-                    {
-                        ostringstream ss;
-                        ss << sprawdzanyZnak << liczbaWystapienZnaku;
-
-                        skroconyWyraz += ss.str();
-                    }
-                    else
-                    {
-                        while (liczbaWystapienZnaku != 0)
-                        {
-                            skroconyWyraz += sprawdzanyZnak;
-                            liczbaWystapienZnaku--;
-                        }
+                        skroconyWyraz += wyraz[i];
+                        n--;
                     }
                 }
             }
-
-            liczbaSprawdzonychZnakow = 0; // Zerowanie rozmiaru łańcucha
-            sprawdzoneZnaki = ""; // Czyszczenie zawartości łańcucha
-
-			cout << skroconyWyraz << endl;
-		}
+        }
+        cout << skroconyWyraz << endl;
 		liczbaTestow--;
 	}
     return 0;
